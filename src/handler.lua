@@ -1,5 +1,4 @@
 local stringy = require "stringy"
-local responses = require "kong.tools.responses"
 local xml_validator = require "kong.plugins.xml-threat-protection.xml_validator"
 local BasePlugin = require "kong.plugins.base_plugin"
 
@@ -43,7 +42,7 @@ function XmlTheatProtectionHandler:access(config)
         local body = ngx.req.get_body_data()
 
         if not body then
-            return responses.send_OK()
+            return kong.response.exit(200)
         end
 
         local result, message = xml_validator.execute(body,
@@ -62,13 +61,13 @@ function XmlTheatProtectionHandler:access(config)
             config.value_limits_processing_instruction_data)
 
         if result == true then
-            return responses.send_HTTP_OK()
+            return kong.response.exit(200)
         else
-            return responses.send_HTTP_BAD_REQUEST(message)
+            return kong.response.exit(400, message)
         end
     end
 
-    return responses.send_HTTP_OK()
+    return kong.response.exit(200)
 end
 
 return XmlTheatProtectionHandler

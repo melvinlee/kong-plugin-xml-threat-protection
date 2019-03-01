@@ -2,7 +2,7 @@ package = "kong-plugin-xml-threat-protection"
 version = "1.0-0"
 supported_platforms = {"linux", "macosx"}
 source = {
-  url = "git://github.com/Trust1Team/kong-plugin-xml-threat-protection",
+  url = "git://github.com/melvinlee/kong-plugin-xml-threat-protection",
   tag = "1.0.0"
 }
 description = {
